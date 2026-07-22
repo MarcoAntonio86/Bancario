@@ -1,13 +1,13 @@
 from abc import ABC, abstractmethod
 
 
-class Transacao(ABC):
+class Transaction(ABC):
+
     @property
     @abstractmethod
-    def valor(self):
+    def amount(self):
         pass
-    
+
     @abstractmethod
-    def registrar(self, conta):
+    def register(self, account):
         pass
-    
