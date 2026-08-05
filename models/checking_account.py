@@ -14,3 +14,29 @@ class CheckingAccount(Account):
     @property
     def withdrawal_count_limit(self):
         return self._withdrawal_count_limit
+
+   
+    def withdraw(self, amount):
+        withdrawal_count = len(
+            [
+                transaction
+                for transaction in self.history.transactions
+                if transaction["type"] == "Withdrawal"
+            ]
+        )
+
+        exceeded_limit = amount > self.withdrawal_limit
+        exceeded_withdrawals = (
+            withdrawal_count >= self.withdrawal_count_limit
+        )
+
+        if exceeded_limit:
+            print("\n@@@ Operation failed! Withdrawal amount exceeds the limit. @@@")
+
+        elif exceeded_withdrawals:
+            print("\n@@@ Operation failed! Maximum number of withdrawals exceeded. @@@")
+
+        else:
+            return super().withdraw(amount)
+
+        return False
