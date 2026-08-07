@@ -1,7 +1,7 @@
 from transactions.transaction import Transaction
 
 
-class Deposit(Transaction):
+class Withdrawal(Transaction):
 
     def __init__(self, amount):
         self._amount = amount
@@ -11,7 +11,7 @@ class Deposit(Transaction):
         return self._amount
 
     def register(self, account):
-        success = account.deposit(self.amount)
+        success = account.withdraw(self.amount)
 
         if success:
              account.history.add_transaction(self)
