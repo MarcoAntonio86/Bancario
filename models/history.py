@@ -19,4 +19,9 @@ class TransactionHistory:
         )
 
     def generate_report(self, transaction_type=None):
-        pass
+        for transaction in self.transactions:
+            if(
+                transaction_type is None
+                or transaction["type"] == transaction_type
+            ):
+                yield transaction
