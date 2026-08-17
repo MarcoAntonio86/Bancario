@@ -3,6 +3,8 @@ from transactions.withdrawal import Withdrawal
 from models.individual_customer import IndividualCustomer
 from models.checking_account import CheckingAccount
 from iterators.account_iterator import AccountIterator
+from utils.transaction_log import transaction_log
+
 
 def filter_customer(cpf, customers):
     filtered_customers = [
@@ -13,6 +15,7 @@ def filter_customer(cpf, customers):
 
     return filtered_customers[0] if filtered_customers else None
 
+
 def recover_customer_account(customer):
     if not customer.accounts:
         print("\n@@@ Customer does not have an account! @@@")
@@ -21,6 +24,8 @@ def recover_customer_account(customer):
     # FIXME: currently does not allow the customer to choose an account
     return customer.accounts[0]
 
+
+@transaction_log
 def deposit(customers):
     cpf = input("Enter the customer's CPF: ")
     customer = filter_customer(cpf, customers)
@@ -40,6 +45,7 @@ def deposit(customers):
     customer.perform_transaction(account, transaction)
 
 
+@transaction_log
 def withdraw(customers):
     cpf = input("Enter the customer's CPF: ")
     customer = filter_customer(cpf, customers)
@@ -58,6 +64,8 @@ def withdraw(customers):
 
     customer.perform_transaction(account, transaction)
 
+
+@transaction_log
 def create_customer(customers):
     cpf = input("Enter CPF (numbers only): ")
     customer = filter_customer(cpf, customers)
@@ -83,6 +91,8 @@ def create_customer(customers):
 
     print("\n=== Customer created successfully! ===")
 
+
+@transaction_log
 def create_account(account_number, customers, accounts):
     cpf = input("Enter the customer's CPF: ")
     customer = filter_customer(cpf, customers)
@@ -107,6 +117,8 @@ def list_accounts(accounts):
         print(f"Customer: {account['customer']}")
         print(f"Balance: ${account['balance']:.2f}")
 
+
+@transaction_log
 def show_statement(customers):
     cpf = input("Enter the customer's CPF: ")
     customer = filter_customer(cpf, customers)
