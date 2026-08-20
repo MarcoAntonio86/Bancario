@@ -39,3 +39,6 @@ def main():
 
         else:
             print("\n@@@ Invalid option! Please select a valid operation. @@@")
+
+if __name__ == "__main__":
+    main()
