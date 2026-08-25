@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta, timezone
 
 
 class TransactionHistory:
@@ -14,14 +14,18 @@ class TransactionHistory:
             {
                 "type": transaction.__class__.__name__,
                 "amount": transaction.amount,
-                "date": datetime.now().strftime("%d-%m-%Y %H:%M:%S"),
+                "date": datetime.now(
+                    timezone(timedelta(hours=-3))
+                ).strftime("%d-%m-%Y %H:%M:%S"),
             }
         )
 
     def generate_report(self, transaction_type=None):
         for transaction in self.transactions:
-            if(
+            if (
                 transaction_type is None
                 or transaction["type"] == transaction_type
             ):
                 yield transaction
+
+                

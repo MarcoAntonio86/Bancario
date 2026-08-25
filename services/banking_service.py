@@ -4,6 +4,7 @@ from models.individual_customer import IndividualCustomer
 from models.checking_account import CheckingAccount
 from iterators.account_iterator import AccountIterator
 from utils.transaction_log import transaction_log
+from datetime import datetime
 
 
 def filter_customer(cpf, customers):
@@ -75,7 +76,17 @@ def create_customer(customers):
         return
 
     name = input("Enter full name: ")
-    birth_date = input("Enter birth date (dd-mm-yyyy): ")
+    birth_date_input = input("Enter birth date (dd-mm-yyyy): ")
+
+    try:
+        birth_date = datetime.strptime(
+            birth_date_input,
+            "%d-%m-%Y",
+        )
+    except ValueError:
+        print("\n@@@ Invalid birth date! Use the format dd-mm-yyyy. @@@")
+        return
+
     address = input(
         "Enter address (street, number - neighborhood - city/state): "
     )
@@ -90,7 +101,7 @@ def create_customer(customers):
     customers.append(customer)
 
     print("\n=== Customer created successfully! ===")
-
+    
 
 @transaction_log
 def create_account(account_number, customers, accounts):
