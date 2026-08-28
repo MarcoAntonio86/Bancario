@@ -1,2 +1,5 @@
 Date and time: 28-08-2026 17:07:52 | Operation: create_customer | Args: ([<models.individual_customer.IndividualCustomer object at 0x000001B2A46C7590>],) | Kwargs: {} | Return: None
 Date and time: 28-08-2026 17:10:52 | Operation: create_account | Args: (1, [<models.individual_customer.IndividualCustomer object at 0x000001B2A46C7590>], [<models.checking_account.CheckingAccount object at 0x000001B2A4ABDF10>]) | Kwargs: {} | Return: None
+Date and time: 28-08-2026 17:25:15 | Operation: create_customer | Args: ([],) | Kwargs: {} | Return: None
+Date and time: 28-08-2026 17:25:38 | Operation: create_customer | Args: ([],) | Kwargs: {} | Return: None
+Date and time: 28-08-2026 17:26:02 | Operation: create_account | Args: (1, [], []) | Kwargs: {} | Return: None

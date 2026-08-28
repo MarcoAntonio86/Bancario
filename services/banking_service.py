@@ -69,6 +69,12 @@ def withdraw(customers):
 @transaction_log
 def create_customer(customers):
     cpf = input("Enter CPF (numbers only): ")
+
+    if len(cpf) != 11 or not cpf.isdigit():
+        print("\n@@@ Invalid CPF! Enter exactly 11 digits. @@@")
+        return
+
+    
     customer = filter_customer(cpf, customers)
 
     if customer:
