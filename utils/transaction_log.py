@@ -7,11 +7,19 @@ def transaction_log(func):
             timezone(timedelta(hours=-3))
         ).strftime("%d-%m-%Y %H:%M:%S")
 
-        print(
-            f"\n[LOG] Date and time: {date_time} | "
-            f"Operation: {func.__name__}"
+        result = func(*args, **kwargs)
+
+        log_entry = (
+            f"Date and time: {date_time} | "
+            f"Operation: {func.__name__} | "
+            f"Args: {args} | "
+            f"Kwargs: {kwargs} | "
+            f"Return: {result}\n"
         )
 
-        return func(*args, **kwargs)
+        with open("log.txt", "a", encoding="utf-8") as file:
+            file.write(log_entry)
+
+        return result
 
     return wrapper
