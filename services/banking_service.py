@@ -5,6 +5,11 @@ from models.checking_account import CheckingAccount
 from iterators.account_iterator import AccountIterator
 from utils.transaction_log import transaction_log
 from datetime import datetime
+from database.customer_repository import insert_individual_customer
+from database.customer_repository import (
+    find_individual_customer_by_cpf,
+    insert_individual_customer,
+)
 
 
 def filter_customer(cpf, customers):
@@ -76,10 +81,12 @@ def create_customer(customers):
 
     
     customer = filter_customer(cpf, customers)
+    customer_db = find_individual_customer_by_cpf(cpf)
 
-    if customer:
+    if customer or customer_db:
         print("\n@@@ A customer with this CPF already exists! @@@")
         return
+
 
     name = input("Enter full name: ")
     birth_date_input = input("Enter birth date (dd-mm-yyyy): ")
@@ -105,6 +112,8 @@ def create_customer(customers):
     )
 
     customers.append(customer)
+
+    insert_individual_customer(customer)
 
     print("\n=== Customer created successfully! ===")
     

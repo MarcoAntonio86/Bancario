@@ -17,6 +17,17 @@ def create_tables():
         """
     )
 
+    cursor.execute(
+        """
+        CREATE TABLE IF NOT EXISTS corporate_customers (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            company_name TEXT NOT NULL,
+            cnpj TEXT UNIQUE NOT NULL,
+            address TEXT NOT NULL
+        )
+        """
+    )
+
     connection.commit()
     connection.close()
 
