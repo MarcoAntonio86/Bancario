@@ -1,16 +1,22 @@
 from transactions.deposit import Deposit
 from transactions.withdrawal import Withdrawal
+
 from models.individual_customer import IndividualCustomer
+from models.corporate_customer import CorporateCustomer
 from models.checking_account import CheckingAccount
+
 from iterators.account_iterator import AccountIterator
+
 from utils.transaction_log import transaction_log
+
 from datetime import datetime
-from database.customer_repository import insert_individual_customer
+
 from database.customer_repository import (
     find_individual_customer_by_cpf,
     insert_individual_customer,
+    find_corporate_customer_by_cnpj,
+    insert_corporate_customer,
 )
-
 
 def filter_customer(cpf, customers):
     filtered_customers = [
@@ -72,7 +78,7 @@ def withdraw(customers):
 
 
 @transaction_log
-def create_customer(customers):
+def create_individual_customer(customers):
     cpf = input("Enter CPF (numbers only): ")
 
     if len(cpf) != 11 or not cpf.isdigit():
@@ -176,3 +182,51 @@ def show_statement(customers):
 
     print(f"\nBalance: ${account.balance:.2f}")
     print("===========================================")
+
+def create_customer(customers):
+    customer_type = input(
+        "\n[1] Individual customer"
+        "\n[2] Corporate customer"
+        "\n=> "
+    )
+
+    if customer_type == "1":
+        create_individual_customer(customers)
+
+    elif customer_type == "2":
+        create_corporate_customer(customers)
+
+    else:
+        print("\n@@@ Invalid customer type! @@@")
+
+@transaction_log
+def create_corporate_customer(customers):
+    cnpj = input("Enter CNPJ (numbers only): ")
+
+    if len(cnpj) != 14 or not cnpj.isdigit():
+        print("\n@@@ Invalid CNPJ! Enter exactly 14 digits. @@@")
+        return
+
+    customer_db = find_corporate_customer_by_cnpj(cnpj)
+
+    if customer_db:
+        print("\n@@@ A customer with this CNPJ already exists! @@@")
+        return
+
+    company_name = input("Enter company name: ")
+
+    address = input(
+        "Enter address (street, number - neighborhood - city/state): "
+    )
+
+    customer = CorporateCustomer(
+        address=address,
+        cnpj=cnpj,
+        company_name=company_name,
+    )
+
+    customers.append(customer)
+
+    insert_corporate_customer(customer)
+
+    print("\n=== Corporate customer created successfully! ===")
