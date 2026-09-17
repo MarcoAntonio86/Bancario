@@ -6,6 +6,7 @@ def menu():
     [s] Statement
     [na] New account
     [la] List accounts
+    [lc] List customers
     [nc] New customer
     [q] Quit
     => """

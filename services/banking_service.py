@@ -247,9 +247,18 @@ def list_customers():
     print("\n=== Individual Customers ===")
 
     for customer in individual_customers:
-        print(customer)
+        print(f"ID: {customer[0]}")
+        print(f"Name: {customer[1]}")
+        print(f"CPF: {customer[2]}")
+        print(f"Birth date: {customer[3]}")
+        print(f"Address: {customer[4]}")
+        print("-" * 40)
 
     print("\n=== Corporate Customers ===")
 
     for customer in corporate_customers:
-        print(customer)
+        print(f"ID: {customer[0]}")
+        print(f"Company name: {customer[1]}")
+        print(f"CNPJ: {customer[2]}")
+        print(f"Address: {customer[3]}")
+        print("-" * 40)

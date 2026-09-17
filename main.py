@@ -4,6 +4,7 @@ from services.banking_service import (
     create_customer,
     deposit,
     list_accounts,
+    list_customers,
     show_statement,
     withdraw,
 )
@@ -33,6 +34,9 @@ def main():
 
         elif option == "la":
             list_accounts(accounts)
+
+        elif option == "lc":
+            list_customers()
 
         elif option == "q":
             break
