@@ -18,6 +18,15 @@ from database.customer_repository import (
     insert_corporate_customer,
 )
 
+from database.customer_repository import (
+    find_individual_customer_by_cpf,
+    insert_individual_customer,
+    find_corporate_customer_by_cnpj,
+    insert_corporate_customer,
+    list_individual_customers,
+    list_corporate_customers,
+)
+
 def filter_customer(cpf, customers):
     filtered_customers = [
         customer
@@ -230,3 +239,17 @@ def create_corporate_customer(customers):
     insert_corporate_customer(customer)
 
     print("\n=== Corporate customer created successfully! ===")
+
+def list_customers():
+    individual_customers = list_individual_customers()
+    corporate_customers = list_corporate_customers()
+
+    print("\n=== Individual Customers ===")
+
+    for customer in individual_customers:
+        print(customer)
+
+    print("\n=== Corporate Customers ===")
+
+    for customer in corporate_customers:
+        print(customer)

@@ -79,3 +79,40 @@ def find_corporate_customer_by_cnpj(cnpj):
     connection.close()
 
     return customer
+
+def list_individual_customers():
+    connection = create_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+        SELECT *
+        FROM individual_customers
+        """
+    )
+
+    customers = cursor.fetchall()
+
+    connection.close()
+
+    return customers
+
+
+def list_corporate_customers():
+    connection = create_connection()
+    cursor = connection.cursor()
+
+    cursor.execute(
+        """
+        SELECT *
+        FROM corporate_customers
+        """
+    )
+
+    customers = cursor.fetchall()
+
+    connection.close()
+
+    return customers
+
+
