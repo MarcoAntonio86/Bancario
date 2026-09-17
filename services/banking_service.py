@@ -1,3 +1,5 @@
+from unicodedata import name
+
 from transactions.deposit import Deposit
 from transactions.withdrawal import Withdrawal
 
@@ -103,7 +105,12 @@ def create_individual_customer(customers):
         return
 
 
-    name = input("Enter full name: ")
+    name = input("Enter full name: ").strip()
+
+    if not name:
+        print("\n@@@ Name cannot be empty! @@@")
+        return
+    
     birth_date_input = input("Enter birth date (dd-mm-yyyy): ")
 
     try:
@@ -116,8 +123,12 @@ def create_individual_customer(customers):
         return
 
     address = input(
-        "Enter address (street, number - neighborhood - city/state): "
-    )
+    "Enter address (street, number - neighborhood - city/state): "
+).strip()
+
+    if not address:
+        print("\n@@@ Address cannot be empty! @@@")
+        return
 
     customer = IndividualCustomer(
         address=address,
@@ -222,7 +233,11 @@ def create_corporate_customer(customers):
         print("\n@@@ A customer with this CNPJ already exists! @@@")
         return
 
-    company_name = input("Enter company name: ")
+    company_name = input("Enter company name: ").strip()
+
+    if not company_name:
+        print("\n@@@ Company name cannot be empty! @@@")
+        return
 
     address = input(
         "Enter address (street, number - neighborhood - city/state): "
